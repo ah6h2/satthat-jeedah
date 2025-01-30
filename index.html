@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سطحة جدة - تصميم جديد</title>
+<title>سطحة جدةد</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -13,6 +13,15 @@
             --secondary: #3B185F;
             --accent: #A12568;
             --highlight: #FEC260;
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            :root { font-size: 14px; }
+        }
+
+        @media (max-width: 480px) {
+            :root { font-size: 12px; }
         }
 
         body {
@@ -108,9 +117,11 @@
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .service-card:hover {
-            transform: translateY(-15px) rotate(3deg);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        @media (min-width: 768px) {
+            .service-card:hover {
+                transform: translateY(-15px) rotate(3deg);
+                box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            }
         }
 
         .floating {
@@ -147,6 +158,65 @@
             50% { opacity: 0.3; }
             100% { opacity: 0.8; }
         }
+
+        /* تحسينات التجاوب */
+        @media (max-width: 768px) {
+            .hero-text {
+                font-size: 2rem !important;
+                text-align: center;
+            }
+            
+            .hero-image {
+                margin-top: 2rem;
+                max-width: 90% !important;
+            }
+            
+            .floating {
+                animation: none;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .footer-grid > div {
+                margin-bottom: 2rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .service-card {
+                margin: 0 1rem;
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem !important;
+            }
+            
+            h2 {
+                font-size: 1.5rem !important;
+            }
+        }
+
+        .skeleton {
+            animation: skeleton-loading 1s linear infinite alternate;
+        }
+
+        @keyframes skeleton-loading {
+            0% { background-color: #e0e0e0; }
+            100% { background-color: #f5f5f5; }
+        }
+
+        .skeleton-text {
+            width: 100%;
+            height: 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 0.25rem;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -170,6 +240,11 @@
                 </span>
             </a>
             
+            <!-- قائمة الجوال -->
+            <button id="mobileMenu" class="md:hidden p-2 text-highlight">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+
             <div class="hidden md:flex items-center gap-12">
                 <div class="flex gap-8">
                     <a href="index.html" class="hover:text-highlight transition-colors">الرئيسية</a>
@@ -181,6 +256,15 @@
             </div>
         </div>
     </nav>
+
+    <!-- القائمة المتنقلة -->
+    <div id="mobileNav" class="hidden md:hidden absolute top-full left-0 w-full bg-white shadow-lg">
+        <div class="container mx-auto px-6 py-4">
+            <a href="index.html" class="block py-2 text-primary">الرئيسية</a>
+            <a href="services.html" class="block py-2 text-primary">الخدمات</a>
+            <a href="contact.html" class="block py-2 text-primary">اتصل بنا</a>
+        </div>
+    </div>
 </header>
 
 <!-- قسم الهيرو -->
@@ -188,7 +272,7 @@
     <div class="container mx-auto px-6">
         <div class="flex flex-col md:flex-row items-center justify-between">
             <div class="md:w-1/2 mb-12 md:mb-0">
-                <h1 class="text-5xl font-bold mb-6 leading-tight">
+                <h1 class="text-5xl font-bold mb-6 leading-tight hero-text">
                     خدمات نقل المركبات 
                     <span class="text-highlight">باحترافية</span>
                 </h1>
@@ -199,14 +283,14 @@
                     <a href="https://wa.me/966535606283" class="bg-accent px-8 py-3 rounded-full hover:bg-highlight transition-colors">
                         لطلب الخدمة اضغط  هنا
                     </a>
-                   
                 </div>
             </div>
             
-            <div class="md:w-1/2 relative floating">
+            <div class="md:w-1/2 relative floating hero-image">
                 <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border-glow">
                     <img src="WhatsApp Image 2025-01-30 at 22.57.25_bb39219e.jpg" alt="سطحة" 
-                         class="rounded-xl w-full h-64 object-cover">
+                         class="rounded-xl w-full h-auto md:h-64 object-cover"
+                         loading="lazy">
                 </div>
             </div>
         </div>
@@ -218,7 +302,7 @@
     <div class="container mx-auto px-6">
         <h2 class="text-4xl font-bold text-center mb-16 text-primary">خدماتنا المميزة</h2>
         
-        <div class="grid md:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             <!-- بطاقة الخدمة 1 -->
             <div class="service-card p-8">
                 <div class="w-16 h-16 bg-primary rounded-xl mb-6 flex items-center justify-center">
@@ -285,7 +369,24 @@
                 </div>
 
                 <div>
-                   
+                    <div class="space-y-4">
+                        <input type="text" 
+                            class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-accent"
+                            placeholder="اسمك الكريم">
+                        
+                        <input type="tel"
+                            class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-accent"
+                            placeholder="رقم الجوال">
+                        
+                        <textarea 
+                            class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-accent"
+                            rows="4"
+                            placeholder="رسالتك..."></textarea>
+                        
+                        <button class="bg-accent text-white px-6 py-3 rounded-lg hover:bg-highlight">
+                            إرسال الرسالة
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -295,7 +396,7 @@
 <!-- الفوتر -->
 <footer class="footer-bg text-white py-12">
     <div class="container mx-auto px-6">
-        <div class="grid md:grid-cols-4 gap-8">
+        <div class="grid md:grid-cols-4 gap-8 footer-grid">
             <div>
                 <h4 class="text-xl font-bold mb-4 text-highlight">سطحة جدة</h4>
                 <p class="text-gray-300">الحل الأمثل لنقل المركبات باحترافية وأمان</p>
@@ -312,7 +413,7 @@
                 <h4 class="text-xl font-bold mb-4 text-highlight">التواصل</h4>
                 <ul class="space-y-2">
                     <li>جدة - المملكة العربية السعودية</li>
-                    <li>mlmm225599@gamil.com</li>
+                    <li>info@example.com</li>
                 </ul>
             </div>
             <div>
@@ -338,7 +439,7 @@
 </footer>
 
 <!-- أزرار عائمة ثابتة اللون -->
-<div class="fixed bottom-6 right-6 flex flex-col space-y-4 z-50">
+<div class="fixed bottom-6 right-6 flex flex-col space-y-4 z-50 floating-buttons">
     <a href="tel:0535606283" class="w-12 h-12 bg-highlight text-primary rounded-full flex items-center justify-center shadow-xl">
         <i class="fas fa-phone"></i>
     </a>
@@ -346,6 +447,13 @@
         <i class="fab fa-whatsapp text-gray-600"></i>
     </a>
 </div>
+
+<script>
+    // تفعيل القائمة المتنقلة
+    document.getElementById('mobileMenu').addEventListener('click', function() {
+        document.getElementById('mobileNav').classList.toggle('hidden');
+    });
+</script>
 
 </body>
 </html>
